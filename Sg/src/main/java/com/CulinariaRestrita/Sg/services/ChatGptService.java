@@ -2,6 +2,7 @@ package com.CulinariaRestrita.Sg.services;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.theokanning.openai.OpenAiService;
@@ -14,7 +15,8 @@ import com.theokanning.openai.completion.CompletionRequest;
 public class ChatGptService {
 	
 	/*esta chave da api do chat,se obtem pelo proprio site*/
-	private String apiKey = "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" ;
+	@Value("${chatgpt.apiKey}")
+	private String apiKey  ;
 	
 	
 	OpenAiService service = new OpenAiService(apiKey);
