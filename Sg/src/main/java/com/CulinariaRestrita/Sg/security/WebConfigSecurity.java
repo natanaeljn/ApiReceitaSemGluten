@@ -32,6 +32,7 @@ public class WebConfigSecurity {
                  .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(HttpMethod.POST, "auth/login").permitAll()
                 .requestMatchers(HttpMethod.GET, "auth/register").permitAll()
+                .requestMatchers(HttpMethod.GET, "/swagger-ui/index.html").permitAll()
                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)

@@ -16,6 +16,8 @@ import com.CulinariaRestrita.Sg.repositories.RecipesRepository;
 import com.CulinariaRestrita.Sg.services.IngredientsService;
 import com.CulinariaRestrita.Sg.services.RecipesService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("ingredients")
 public class IngredientsController {
@@ -37,7 +39,7 @@ public class IngredientsController {
 	}
 	
 	@PostMapping
-	public Ingredients saveIngredient(@RequestBody Ingredients ingredient , Long id) {
+	public Ingredients saveIngredient(@RequestBody @Valid Ingredients ingredient , Long id) {
 		Recipes recipes = recipesRepository.findById(id).get();
 		ingredient.setRecipies(recipes);
 		return ingredientsService.saveIngredient(ingredient);

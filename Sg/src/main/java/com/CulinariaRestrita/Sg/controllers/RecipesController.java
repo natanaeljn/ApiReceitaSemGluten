@@ -16,6 +16,8 @@ import com.CulinariaRestrita.Sg.repositories.UsersRepository;
 import com.CulinariaRestrita.Sg.services.ChatGptService;
 import com.CulinariaRestrita.Sg.services.RecipesService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/recipes")
 public class RecipesController {
@@ -42,7 +44,7 @@ public class RecipesController {
 		return recipesService.getFavoriteRecipes(id);
 	}
 	@PostMapping("/saveRecipe")
-	public Recipes saveRecipe(@RequestBody Recipes recipes , Long idUser) {
+	public Recipes saveRecipe(@RequestBody @Valid Recipes recipes , Long idUser) {
 		Users users  = usersRepository.findById(idUser).get();
 		recipes.setUserRecipe(users);
 		return recipesService.saveRecipe(recipes);

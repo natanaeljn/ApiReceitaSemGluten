@@ -16,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Users implements UserDetails{
@@ -26,9 +27,11 @@ public class Users implements UserDetails{
 	@Id
 	@GeneratedValue(strategy =  GenerationType.AUTO)
 	private Long id;
-	
+	@NotBlank
 	private String name;
+	@NotBlank
 	private String email;
+	@NotBlank
 	private String password;
 	
 	@OneToMany(mappedBy ="userRecipe", orphanRemoval = true , cascade = CascadeType.ALL)

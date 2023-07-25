@@ -17,17 +17,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Recipes {
 	@Id
 	@GeneratedValue( strategy = GenerationType.AUTO)
 	private Long id;
-	
+	@NotBlank
 	private String nameRecipe;
+	@NotBlank
 	private String tipo;
 	
-	
+	@NotBlank
 	@Column(name="PREPARATION", length = 3000 , nullable = false)
 	private String preparation;
 	
@@ -43,6 +45,14 @@ public class Recipes {
 	private List<Ingredients>ingredients;
 	
 	
+
+	
+
+	public Recipes(String string, String string2, String string3) {
+		this.nameRecipe = string;
+		this.tipo = string2;
+		this.preparation=string3;
+	}
 
 	public Long getId() {
 		return id;
