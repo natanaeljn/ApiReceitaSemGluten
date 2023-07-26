@@ -17,6 +17,7 @@ API para gerenciar Receitas com foco no sem gluten e lactose , com autenticaçã
 - [Spring Data JPA](https://spring.io/projects/spring-data-jpa)
 - [SpringDoc OpenAPI 3](https://springdoc.org/v2/#spring-webflux-support)
 - [PostgresSql](https://www.postgresql.org/docs/)
+- [Spring Security](https://spring.io/projects/spring-security)
 
 ## Práticas adotadas
 
