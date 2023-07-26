@@ -10,12 +10,11 @@ import com.CulinariaRestrita.Sg.model.Ingredients;
 
 import jakarta.transaction.Transactional;
 
-
 @Repository
 @Transactional
-public interface IngredientsRepository extends JpaRepository<Ingredients, Long>{
-	
+public interface IngredientsRepository extends JpaRepository<Ingredients, Long> {
+
 	@Query("select t from Ingredients t where t.recipies.id = ?1")
-	List<Ingredients>findByRecipeId(Long id);
+	List<Ingredients> findByRecipeId(Long id);
 
 }

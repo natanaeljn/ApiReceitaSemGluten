@@ -19,46 +19,42 @@ import com.CulinariaRestrita.Sg.services.TokenService;
 
 import jakarta.validation.Valid;
 
-
 @RestController
 @RequestMapping("auth")
 public class AuthenticatedController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+	@Autowired
+	private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private TokenService tokenService;
-    
-    @Autowired
-    private UsersRepository usersRepository;
+	@Autowired
+	private TokenService tokenService;
 
-    @PostMapping("/login")
-    public String login(@RequestBody AuthenticationDto login) {
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(login.email(),
-                        login.password());
+	@Autowired
+	private UsersRepository usersRepository;
 
-        Authentication authenticate = this.authenticationManager
-                .authenticate(usernamePasswordAuthenticationToken);
+	@PostMapping("/login")
+	public String login(@RequestBody AuthenticationDto login) {
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+				login.email(), login.password());
 
-        var usuario = (Users) authenticate.getPrincipal();
+		Authentication authenticate = this.authenticationManager.authenticate(usernamePasswordAuthenticationToken);
 
-        return tokenService.gerarToken(usuario);
+		var usuario = (Users) authenticate.getPrincipal();
 
-    }
-    
-    @PostMapping("/register")
+		return tokenService.gerarToken(usuario);
+
+	}
+
+	@PostMapping("/register")
 	public ResponseEntity register(@RequestBody @Valid RegisterDto data) {
-		if(this.usersRepository.findByemail(data.email())!= null){
+		if (this.usersRepository.findByemail(data.email()) != null) {
 			return ResponseEntity.badRequest().build();
-		}
-		else {
+		} else {
 			String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-			Users users =  new Users (data.email() , encryptedPassword , data.name() , data.role());
+			Users users = new Users(data.email(), encryptedPassword, data.name(), data.role());
 			this.usersRepository.save(users);
 		}
 		return ResponseEntity.ok().build();
-		
+
 	}
 }

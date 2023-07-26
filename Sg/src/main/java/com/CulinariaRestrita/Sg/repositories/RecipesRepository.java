@@ -12,11 +12,11 @@ import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface RecipesRepository extends JpaRepository<Recipes, Long>{
-	
+public interface RecipesRepository extends JpaRepository<Recipes, Long> {
+
 	@Query("select t from Recipes t where t.tipo = ?1")
-	List<Recipes>findByTipo(String tipo);
-	
+	List<Recipes> findByTipo(String tipo);
+
 	@Query("select t from Recipes t where t.userRecipe.id = ?1")
-	List<Recipes>findByUserRecipe(Long id);
+	List<Recipes> findByUserRecipe(Long id);
 }

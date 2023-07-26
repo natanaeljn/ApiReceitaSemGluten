@@ -16,18 +16,14 @@ import com.CulinariaRestrita.Sg.services.UsersService;
 @RestController
 @RequestMapping("usersPage")
 public class UsersController {
-	 
+
 	@Autowired
 	private UsersService usersService;
-	
-	
+
 	@CrossOrigin(origins = "*", allowedHeaders = "*")
 	@GetMapping
-	public List<UsersDto> getAll(){
+	public List<UsersDto> getAll() {
 		return usersService.getAll();
 	}
-	
-	
-	
 
 }

@@ -9,9 +9,8 @@ import jakarta.transaction.Transactional;
 
 @Repository
 @Transactional
-public interface UsersRepository extends JpaRepository<Users, Long>{
-	
+public interface UsersRepository extends JpaRepository<Users, Long> {
+
 	Users findByemail(String email);
-	
 
 }

@@ -1,11 +1,6 @@
 package com.CulinariaRestrita.Sg.model;
 
-
-
 import java.util.List;
-
-
-
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -22,41 +17,27 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class Recipes {
 	@Id
-	@GeneratedValue( strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@NotBlank
 	private String nameRecipe;
 	@NotBlank
 	private String tipo;
-	
+
 	@NotBlank
-	@Column(name="PREPARATION", length = 3000 , nullable = false)
+	@Column(name = "PREPARATION", length = 3000, nullable = false)
 	private String preparation;
-	
-	
-	
+
 	@JoinColumn(foreignKey = @ForeignKey(name = "user_id"))
 	@ManyToOne
 	private Users userRecipe;
 
-	
-	
-	@OneToMany(mappedBy = "recipies" , orphanRemoval = true , cascade = CascadeType.ALL)
-	private List<Ingredients>ingredients;
-	
-	
-	
-
-	
-
-	
-	
+	@OneToMany(mappedBy = "recipies", orphanRemoval = true, cascade = CascadeType.ALL)
+	private List<Ingredients> ingredients;
 
 	public Recipes() {
-		
+
 	}
-	
-	
 
 	public Recipes(@NotBlank String nameRecipe, @NotBlank String tipo, @NotBlank String preparation, Users userRecipe,
 			List<Ingredients> ingredients) {
@@ -67,8 +48,6 @@ public class Recipes {
 		this.userRecipe = userRecipe;
 		this.ingredients = ingredients;
 	}
-
-
 
 	public Recipes(Long id, @NotBlank String nameRecipe, @NotBlank String tipo, @NotBlank String preparation,
 			Users userRecipe) {
@@ -83,7 +62,7 @@ public class Recipes {
 	public Recipes(String string, String string2, String string3) {
 		this.nameRecipe = string;
 		this.tipo = string2;
-		this.preparation=string3;
+		this.preparation = string3;
 	}
 
 	public Long getId() {
@@ -125,8 +104,5 @@ public class Recipes {
 	public void setUserRecipe(Users userRecipe) {
 		this.userRecipe = userRecipe;
 	}
-	
-	
-	
 
 }

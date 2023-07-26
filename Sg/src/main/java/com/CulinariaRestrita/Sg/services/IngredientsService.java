@@ -14,22 +14,20 @@ public class IngredientsService {
 
 	@Autowired
 	private IngredientsRepository ingredientsRepository;
-	
-	
-	
-	public List<IngredientsDto>getAll(){
-		 List<IngredientsDto> ingreList = ingredientsRepository.findAll().stream().map(IngredientsDto::new).toList();
-		  return ingreList;
+
+	public List<IngredientsDto> getAll() {
+		List<IngredientsDto> ingreList = ingredientsRepository.findAll().stream().map(IngredientsDto::new).toList();
+		return ingreList;
 	}
-	
-	
-	public List<IngredientsDto>getAllByRecipe(Long id){
-		 List<IngredientsDto> ingreList = ingredientsRepository.findByRecipeId(id).stream().map(IngredientsDto::new).toList();
-		  return ingreList;
+
+	public List<IngredientsDto> getAllByRecipe(Long id) {
+		List<IngredientsDto> ingreList = ingredientsRepository.findByRecipeId(id).stream().map(IngredientsDto::new)
+				.toList();
+		return ingreList;
 	}
-	
+
 	public Ingredients saveIngredient(Ingredients ingredient) {
-		 return ingredientsRepository.save(ingredient);
-	  }
-	
+		return ingredientsRepository.save(ingredient);
+	}
+
 }

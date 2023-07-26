@@ -13,39 +13,34 @@ import com.CulinariaRestrita.Sg.repositories.UsersRepository;
 
 @Service
 public class RecipesService {
-	
-	
-	
+
 	@Autowired
 	RecipesRepository recipesRepository;
 	@Autowired
 	UsersRepository usersRepository;
-	
-  public List<RecipesDto> getAll (){
-	  List<RecipesDto> recipesList = recipesRepository.findAll().stream().map(RecipesDto::new).toList();
-	  return recipesList;
-  }
-  
-  public String deleteRecipe (Long id) {
-	  recipesRepository.deleteById(id);
-	  return "ok";
-  }
-  public Recipes saveRecipe(Recipes recipes) {
-	 return recipesRepository.save(recipes);
-  }
-  public List<RecipesDto>getByType(String tipo){
-	  List<RecipesDto>recipesByType = recipesRepository.findByTipo(tipo).stream().map(RecipesDto::new).toList();
-	  return recipesByType;
-  }
-  
-  public List<RecipesDto>getFavoriteRecipes(Long id){
-	  List<RecipesDto>recipesByType = recipesRepository.findByUserRecipe(id).stream().map(RecipesDto::new).toList();
-	  return recipesByType;
-  }
-  
-  
-  
-  
-  
+
+	public List<RecipesDto> getAll() {
+		List<RecipesDto> recipesList = recipesRepository.findAll().stream().map(RecipesDto::new).toList();
+		return recipesList;
+	}
+
+	public String deleteRecipe(Long id) {
+		recipesRepository.deleteById(id);
+		return "ok";
+	}
+
+	public Recipes saveRecipe(Recipes recipes) {
+		return recipesRepository.save(recipes);
+	}
+
+	public List<RecipesDto> getByType(String tipo) {
+		List<RecipesDto> recipesByType = recipesRepository.findByTipo(tipo).stream().map(RecipesDto::new).toList();
+		return recipesByType;
+	}
+
+	public List<RecipesDto> getFavoriteRecipes(Long id) {
+		List<RecipesDto> recipesByType = recipesRepository.findByUserRecipe(id).stream().map(RecipesDto::new).toList();
+		return recipesByType;
+	}
 
 }

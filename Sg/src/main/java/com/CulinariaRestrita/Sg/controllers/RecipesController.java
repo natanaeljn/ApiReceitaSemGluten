@@ -22,44 +22,48 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/recipes")
 public class RecipesController {
-	
+
 	@Autowired
 	private UsersRepository usersRepository;
-	
+
 	@Autowired
 	private ChatGptService chatGptService;
-	
+
 	@Autowired
 	private RecipesService recipesService;
-	
+
 	@GetMapping("/getAll")
-	public List<RecipesDto>getAll(){
+	public List<RecipesDto> getAll() {
 		return recipesService.getAll();
 	}
+
 	@GetMapping("/getByType")
-	public List<RecipesDto>getByType(String type){
+	public List<RecipesDto> getByType(String type) {
 		return recipesService.getByType(type);
 	}
+
 	@GetMapping("/getFavorite")
-	public List<RecipesDto>getFavoritesRecipes(Long id){
+	public List<RecipesDto> getFavoritesRecipes(Long id) {
 		return recipesService.getFavoriteRecipes(id);
 	}
+
 	@PostMapping("/saveRecipe")
-	public Recipes saveRecipe(@RequestBody @Valid Recipes recipes , Long idUser) {
-		Users users  = usersRepository.findById(idUser).get();
+	public Recipes saveRecipe(@RequestBody @Valid Recipes recipes, Long idUser) {
+		Users users = usersRepository.findById(idUser).get();
 		recipes.setUserRecipe(users);
 		return recipesService.saveRecipe(recipes);
 	}
+
 	@PostMapping("/chat")
-	public String generateRecipeChat(String recipe ) {
+	public String generateRecipeChat(String recipe) {
 		String ret = chatGptService.resposta(recipe);
 		return ret;
 	}
+
 	@DeleteMapping("/delete")
-	public String deleteRecipe(Long id ) {
-		String ret  =  recipesService.deleteRecipe(id);
+	public String deleteRecipe(Long id) {
+		String ret = recipesService.deleteRecipe(id);
 		return ret;
 	}
-	
 
 }

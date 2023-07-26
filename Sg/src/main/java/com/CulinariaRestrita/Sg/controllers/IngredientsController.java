@@ -23,23 +23,22 @@ import jakarta.validation.Valid;
 public class IngredientsController {
 	@Autowired
 	private RecipesRepository recipesRepository;
-	
+
 	@Autowired
 	private IngredientsService ingredientsService;
-	
-	
-	
+
 	@GetMapping("/getAll")
-	public List<IngredientsDto>getAll(){
+	public List<IngredientsDto> getAll() {
 		return ingredientsService.getAll();
 	}
+
 	@GetMapping("/getByRecipe")
-	public List<IngredientsDto>getByType(Long id){
+	public List<IngredientsDto> getByType(Long id) {
 		return ingredientsService.getAllByRecipe(id);
 	}
-	
+
 	@PostMapping
-	public Ingredients saveIngredient(@RequestBody @Valid Ingredients ingredient , Long id) {
+	public Ingredients saveIngredient(@RequestBody @Valid Ingredients ingredient, Long id) {
 		Recipes recipes = recipesRepository.findById(id).get();
 		ingredient.setRecipies(recipes);
 		return ingredientsService.saveIngredient(ingredient);
