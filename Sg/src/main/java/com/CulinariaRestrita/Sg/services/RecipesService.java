@@ -34,7 +34,7 @@ public class RecipesService {
 	 return recipesRepository.save(recipes);
   }
   public List<RecipesDto>getByType(String tipo){
-	  List<RecipesDto>recipesByType = recipesRepository.findBytipo(tipo).stream().map(RecipesDto::new).toList();
+	  List<RecipesDto>recipesByType = recipesRepository.findByTipo(tipo).stream().map(RecipesDto::new).toList();
 	  return recipesByType;
   }
   

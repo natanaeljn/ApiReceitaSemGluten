@@ -45,8 +45,40 @@ public class Recipes {
 	private List<Ingredients>ingredients;
 	
 	
+	
 
 	
+
+	
+	
+
+	public Recipes() {
+		
+	}
+	
+	
+
+	public Recipes(@NotBlank String nameRecipe, @NotBlank String tipo, @NotBlank String preparation, Users userRecipe,
+			List<Ingredients> ingredients) {
+		super();
+		this.nameRecipe = nameRecipe;
+		this.tipo = tipo;
+		this.preparation = preparation;
+		this.userRecipe = userRecipe;
+		this.ingredients = ingredients;
+	}
+
+
+
+	public Recipes(Long id, @NotBlank String nameRecipe, @NotBlank String tipo, @NotBlank String preparation,
+			Users userRecipe) {
+		super();
+		this.id = id;
+		this.nameRecipe = nameRecipe;
+		this.tipo = tipo;
+		this.preparation = preparation;
+		this.userRecipe = userRecipe;
+	}
 
 	public Recipes(String string, String string2, String string3) {
 		this.nameRecipe = string;

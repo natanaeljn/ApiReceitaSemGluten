@@ -28,10 +28,6 @@ public class UsersController {
 	}
 	
 	
-	@CrossOrigin(origins = "*", allowedHeaders = "*")
-	@PostMapping("")
-	public Users saveUser(Users user) {
-		return usersService.save(user);
-	}
+	
 
 }

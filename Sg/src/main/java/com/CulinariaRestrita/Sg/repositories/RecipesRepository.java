@@ -14,8 +14,8 @@ import jakarta.transaction.Transactional;
 @Transactional
 public interface RecipesRepository extends JpaRepository<Recipes, Long>{
 	
-
-	List<Recipes>findBytipo(String tipo );
+	@Query("select t from Recipes t where t.tipo = ?1")
+	List<Recipes>findByTipo(String tipo);
 	
 	@Query("select t from Recipes t where t.userRecipe.id = ?1")
 	List<Recipes>findByUserRecipe(Long id);

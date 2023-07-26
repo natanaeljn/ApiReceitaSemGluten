@@ -3,6 +3,7 @@ package com.CulinariaRestrita.Sg.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,6 +53,11 @@ public class RecipesController {
 	@PostMapping("/chat")
 	public String generateRecipeChat(String recipe ) {
 		String ret = chatGptService.resposta(recipe);
+		return ret;
+	}
+	@DeleteMapping("/delete")
+	public String deleteRecipe(Long id ) {
+		String ret  =  recipesService.deleteRecipe(id);
 		return ret;
 	}
 	
