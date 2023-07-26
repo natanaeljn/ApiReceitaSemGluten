@@ -28,6 +28,7 @@ API para gerenciar Receitas com foco no sem gluten e lactose , com autenticaçã
 - Tratamento de respostas de erro
 - Geração automática do Swagger com a OpenAPI 3
 - Testes automatizados
+- Autenticação com JWT e com token
 
 ## Como Executar
 
