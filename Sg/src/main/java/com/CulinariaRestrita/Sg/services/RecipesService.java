@@ -1,11 +1,15 @@
 package com.CulinariaRestrita.Sg.services;
 
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.CulinariaRestrita.Sg.Util.Util;
 import com.CulinariaRestrita.Sg.dto.RecipesDto;
 import com.CulinariaRestrita.Sg.model.Recipes;
 import com.CulinariaRestrita.Sg.repositories.RecipesRepository;
@@ -18,11 +22,20 @@ public class RecipesService {
 	RecipesRepository recipesRepository;
 	@Autowired
 	UsersRepository usersRepository;
+	
 
-	public List<RecipesDto> getAll() {
-		List<RecipesDto> recipesList = recipesRepository.findAll().stream().map(RecipesDto::new).toList();
-		return recipesList;
+	public Page<RecipesDto> getAll() {
+		PageRequest page = PageRequest.of(0, 6);
+		Page<Recipes> recipesPage = recipesRepository.findAll(page);
+		return Util.page(recipesPage);
 	}
+	public Page<RecipesDto> getAllPagenation(int pagina) {
+		PageRequest page = PageRequest.of(pagina, 6);
+		Page<Recipes> recipesPage = recipesRepository.findAll(page);
+		return Util.page(recipesPage);
+	}
+
+	
 
 	public String deleteRecipe(Long id) {
 		recipesRepository.deleteById(id);
@@ -33,14 +46,23 @@ public class RecipesService {
 		return recipesRepository.save(recipes);
 	}
 
-	public List<RecipesDto> getByType(String tipo) {
-		List<RecipesDto> recipesByType = recipesRepository.findByTipo(tipo).stream().map(RecipesDto::new).toList();
-		return recipesByType;
-	}
-
-	public List<RecipesDto> getFavoriteRecipes(Long id) {
-		List<RecipesDto> recipesByType = recipesRepository.findByUserRecipe(id).stream().map(RecipesDto::new).toList();
-		return recipesByType;
-	}
-
+	
+	  public Page<RecipesDto> getByType(String tipo) { 
+		  PageRequest page = PageRequest.of(0, 6);
+			Page<Recipes> recipesPage = recipesRepository.findByTipo(tipo, page);
+			return Util.page(recipesPage);
+	  }
+	  
+	  public Page<RecipesDto> getAllPagenationBytype(String tipo ,int pagina) {
+			PageRequest page = PageRequest.of(pagina, 6);
+			Page<Recipes> recipesPage = recipesRepository.findByTipo(tipo, page);
+			return Util.page(recipesPage);
+		}
+	  
+	  public List<RecipesDto> getFavoriteRecipes(Long id) { List<RecipesDto>
+	 recipesByType =
+	 recipesRepository.findByUserRecipe(id).stream().map(RecipesDto::new).toList();
+	   return recipesByType; 
+	  }
+	
 }

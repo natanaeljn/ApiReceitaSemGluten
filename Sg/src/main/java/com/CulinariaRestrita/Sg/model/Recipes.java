@@ -39,6 +39,18 @@ public class Recipes {
 
 	}
 
+	
+	
+	public Recipes(Long id, @NotBlank String nameRecipe, @NotBlank String tipo, @NotBlank String preparation) {
+		super();
+		this.id = id;
+		this.nameRecipe = nameRecipe;
+		this.tipo = tipo;
+		this.preparation = preparation;
+	}
+
+
+
 	public Recipes(@NotBlank String nameRecipe, @NotBlank String tipo, @NotBlank String preparation, Users userRecipe,
 			List<Ingredients> ingredients) {
 		super();

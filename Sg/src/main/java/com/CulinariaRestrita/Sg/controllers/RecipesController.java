@@ -3,8 +3,10 @@ package com.CulinariaRestrita.Sg.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,15 +35,23 @@ public class RecipesController {
 	private RecipesService recipesService;
 
 	@GetMapping("/getAll")
-	public List<RecipesDto> getAll() {
+	public Page<RecipesDto> getAll() {
 		return recipesService.getAll();
 	}
-
-	@GetMapping("/getByType")
-	public List<RecipesDto> getByType(String type) {
-		return recipesService.getByType(type);
+	@GetMapping("/getAllPage/{page}")
+	public Page<RecipesDto> getAllPagination(@PathVariable("page")int pagina) {
+		return recipesService.getAllPagenation(pagina);
 	}
 
+	@GetMapping("/getByType/{tipo}")
+	public Page<RecipesDto> getByType(@PathVariable("tipo")String tipo) {
+		return recipesService.getByType(tipo);
+	}
+
+	@GetMapping("/getAllPageType/{tipo}/{page}")
+	public Page<RecipesDto> getAllPagination(@PathVariable("tipo")String tipo , @PathVariable("page")int page) {
+		return recipesService.getAllPagenationBytype(tipo, page);
+	}
 	@GetMapping("/getFavorite")
 	public List<RecipesDto> getFavoritesRecipes(Long id) {
 		return recipesService.getFavoriteRecipes(id);

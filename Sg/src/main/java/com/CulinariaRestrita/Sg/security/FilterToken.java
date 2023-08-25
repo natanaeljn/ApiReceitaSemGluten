@@ -47,12 +47,29 @@ public class FilterToken extends OncePerRequestFilter{
 
             var authentication = new UsernamePasswordAuthenticationToken(usuario,
                     null, usuario.getAuthorities());
+           
 
             /*aqui mostro para o spring que o usuario esta autenticado*/
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            response.addHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, DELETE, PATCH");
         }
 
+        response.addHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, DELETE, PATCH");
         filterChain.doFilter(request, response);
 
     }
+    private void liberaCorsUm(HttpServletResponse response) {
+		if(response.getHeader("Access-Control-Allow-Origin")==null) {
+			response.addHeader("Access-Control-Allow-Origin", "*");
+			
+		}
+		if(response.getHeader("Access-Control-Allow-Headers")==null) {
+			response.addHeader("Access-Control-Allow-Headers", "*");
+			
+		}
+		if(response.getHeader("Access-Control-Allow-Methods")==null) {
+			response.addHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
+		}
+		response.setStatus(200);
+	}
 }

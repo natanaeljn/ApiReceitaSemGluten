@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("auth")
+@CrossOrigin("*")
 public class AuthenticatedController {
 
 	@Autowired
@@ -32,7 +34,8 @@ public class AuthenticatedController {
 	@Autowired
 	private UsersRepository usersRepository;
 
-	@PostMapping("/login")
+	@CrossOrigin("*")
+	@PostMapping(value = "/login")
 	public String login(@RequestBody AuthenticationDto login) {
 		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 				login.email(), login.password());
@@ -41,17 +44,18 @@ public class AuthenticatedController {
 
 		var usuario = (Users) authenticate.getPrincipal();
 
-		return tokenService.gerarToken(usuario);
+		String token= tokenService.gerarToken(usuario);
+		return token;
 
 	}
-
+	@CrossOrigin("*")
 	@PostMapping("/register")
 	public ResponseEntity register(@RequestBody @Valid RegisterDto data) {
-		if (this.usersRepository.findByemail(data.email()) != null) {
+		if (this.usersRepository.findByemail(data.emailRegister()) != null) {
 			return ResponseEntity.badRequest().build();
 		} else {
-			String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-			Users users = new Users(data.email(), encryptedPassword, data.name(), data.role());
+			String encryptedPassword = new BCryptPasswordEncoder().encode(data.passwordRegister());
+			Users users = new Users(data.emailRegister(), encryptedPassword, data.name(), data.role());
 			this.usersRepository.save(users);
 		}
 		return ResponseEntity.ok().build();
