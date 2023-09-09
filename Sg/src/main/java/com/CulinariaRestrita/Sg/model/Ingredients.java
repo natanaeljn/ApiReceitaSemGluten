@@ -1,5 +1,6 @@
 package com.CulinariaRestrita.Sg.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
@@ -23,8 +24,13 @@ public class Ingredients {
 	private double quantityG;
 
 	private double quantityKg;
-
-	private int quantity;
+	
+	@Column(nullable = false , columnDefinition = "integer default 0")
+    private Integer quantityCups;
+	@Column(nullable = false, columnDefinition = "integer default 0")
+	private Integer quantitySpoons;
+	
+	private Integer quantity;
 
 	@JoinColumn(foreignKey = @ForeignKey(name = "recipe_id"))
 	@ManyToOne
@@ -122,5 +128,33 @@ public class Ingredients {
 	public void setRecipies(Recipes recipies) {
 		this.recipies = recipies;
 	}
+
+	public Integer getQuantityCups() {
+		return quantityCups;
+	}
+
+	public void setQuantityCups(Integer quantityCups) {
+		this.quantityCups = quantityCups;
+	}
+
+	public Integer getQuantitySpoons() {
+		return quantitySpoons;
+	}
+
+	public void setQuantitySpoons(Integer quantitySpoons) {
+		this.quantitySpoons = quantitySpoons;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
+
+	
+
+	
+
+
+	
+	
 
 }

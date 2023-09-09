@@ -13,7 +13,7 @@ public class TokenService {
 	/* ira gerar o token */
 	public String gerarToken(Users usuario) {
 		return JWT.create().withIssuer("Receitas").withSubject(usuario.getUsername()).withClaim("id", usuario.getId())
-				.withExpiresAt(LocalDateTime.now().plusHours(24).toInstant(ZoneOffset.of("-03:00")))
+				.withExpiresAt(LocalDateTime.now().plusHours(168).toInstant(ZoneOffset.of("-03:00")))
 				.sign(Algorithm.HMAC256("leonatan"));
 	}
 

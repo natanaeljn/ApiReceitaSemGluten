@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,16 +33,16 @@ public class IngredientsController {
 		return ingredientsService.getAll();
 	}
 
-	@GetMapping("/getByRecipe")
-	public List<IngredientsDto> getByType(Long id) {
-		return ingredientsService.getAllByRecipe(id);
+	@GetMapping("/getByRecipe/{recipeId}")
+	public List<IngredientsDto> getByType( @PathVariable("recipeId")Long idRecipe) {
+		return ingredientsService.getAllByRecipe(idRecipe);
 	}
 
-	@PostMapping
-	public Ingredients saveIngredient(@RequestBody @Valid Ingredients ingredient, Long id) {
-		Recipes recipes = recipesRepository.findById(id).get();
-		ingredient.setRecipies(recipes);
-		return ingredientsService.saveIngredient(ingredient);
+	@PostMapping("/saveIngredient/{idRecipe}")
+	public Ingredients saveIngredient(@RequestBody @Valid Ingredients ing , @PathVariable("idRecipe")Long idRecipe) {
+		Recipes recipes = recipesRepository.findById(idRecipe).get();
+		ing.setRecipies(recipes);
+		return ingredientsService.saveIngredient(ing);
 	}
 
 }

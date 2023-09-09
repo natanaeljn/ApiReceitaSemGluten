@@ -62,6 +62,7 @@ public class Users implements UserDetails {
 		this.email = email;
 		this.password = encryptedPassword;
 		this.name = name;
+		this.role = role;
 
 	}
 

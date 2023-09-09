@@ -12,7 +12,20 @@ public class Util {
 	            recipe.getId(),
 	            recipe.getNameRecipe(),
 	            recipe.getTipo(),
-	            recipe.getPreparation()
+	            recipe.getPreparation(),
+	            recipe.getImage()
 	        ));
 	}
+	
+	public static RecipesDto convertToDto(Recipes recipe) {
+	    return new RecipesDto(
+	        recipe.getId(),
+	        recipe.getNameRecipe(),
+	        recipe.getTipo(),
+	        recipe.getPreparation(),
+	        recipe.getImage()
+	     );
+	
+}
+	
 }

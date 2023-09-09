@@ -2,6 +2,8 @@ package com.CulinariaRestrita.Sg.model;
 
 import java.util.List;
 
+import com.CulinariaRestrita.Sg.dto.RecipesDto;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
@@ -23,6 +26,8 @@ public class Recipes {
 	private String nameRecipe;
 	@NotBlank
 	private String tipo;
+	
+	private String image; 
 
 	@NotBlank
 	@Column(name = "PREPARATION", length = 3000, nullable = false)
@@ -116,5 +121,29 @@ public class Recipes {
 	public void setUserRecipe(Users userRecipe) {
 		this.userRecipe = userRecipe;
 	}
+
+
+
+	public String getImage() {
+		return image;
+	}
+
+
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+
+
+	public RecipesDto map(Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+	
 
 }

@@ -2,12 +2,18 @@ package com.CulinariaRestrita.Sg.services;
 
 
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.CulinariaRestrita.Sg.Util.Util;
 import com.CulinariaRestrita.Sg.dto.RecipesDto;
@@ -15,8 +21,12 @@ import com.CulinariaRestrita.Sg.model.Recipes;
 import com.CulinariaRestrita.Sg.repositories.RecipesRepository;
 import com.CulinariaRestrita.Sg.repositories.UsersRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class RecipesService {
+	
+	private static String caminhoImagem = "C://Users//T-Gamer//Documents/projetoCulinariaRestrita/";
 
 	@Autowired
 	RecipesRepository recipesRepository;
@@ -64,5 +74,31 @@ public class RecipesService {
 	 recipesRepository.findByUserRecipe(id).stream().map(RecipesDto::new).toList();
 	   return recipesByType; 
 	  }
+	  public Recipes GetRecipe (Long id) {
+		  Recipes recipes  =  this.recipesRepository.findById(id).get();
+		  return recipes;
+	  }
+	  
+	  public RecipesDto GetRecipeDto (Long id) {
+		  Recipes recipes  =  this.recipesRepository.findById(id).get();
+		  return Util.convertToDto(recipes);
+	  }
+	  public void uploadImage(Long recipeId, MultipartFile image) throws IOException {
+		  byte[] bytes = image.getBytes();
+  		Path caminho = Paths.get(caminhoImagem+recipeId+image.getOriginalFilename());
+  		Files.write(caminho, bytes);
+  		Recipes recipes = this.GetRecipe(recipeId);
+  		recipes.setImage(String.valueOf(recipeId+image.getOriginalFilename()));
+  		this.saveRecipe(recipes);
+	    }
+	  
+	  public byte[] serachImg(String image) throws IOException {
+		  File imagemArquivo= new File(caminhoImagem+image);
+			if(image !=null ||image.trim().length()>0) {
+				return Files.readAllBytes(imagemArquivo.toPath());
+			}
+			return null;
+		}
+	  
 	
 }

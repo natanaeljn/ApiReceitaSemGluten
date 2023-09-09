@@ -7,7 +7,7 @@ public class RecipesDtoWrapper {
 	private final RecipesDto recipesDto;
 
     public RecipesDtoWrapper() {
-        this.recipesDto = new RecipesDto(null, null, null, null);
+        this.recipesDto = new RecipesDto(null, null, null, null , null);
     }
 
     public RecipesDto getRecipesDto() {
@@ -19,7 +19,8 @@ public class RecipesDtoWrapper {
             recipes.getId(),
             recipes.getNameRecipe(),
             recipes.getTipo(),
-            recipes.getPreparation()
+            recipes.getPreparation(),
+            recipes.getImage()
         );
     }
 }
